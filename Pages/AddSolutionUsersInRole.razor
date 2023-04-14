@@ -1,0 +1,34 @@
+@page "/add-solution-users-in-role"
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>Add SolutionUsersInRole</PageTitle>
+    <RadzenColumn SizeMD=12>
+        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">Cannot save SolutionUsersInRole</RadzenAlert>
+        <RadzenTemplateForm TItem="RadzenBlazorServerADDemo.Models.ConData.SolutionUsersInRole" Data="@solutionUsersInRole" Visible="@(solutionUsersInRole != null && canEdit)" Submit="@FormSubmit">
+            <RadzenRow style="margin-bottom: 1rem">
+                <RadzenColumn SizeMD="3">
+                    <RadzenLabel Text="Solution Role" Component="SolutionRole" style="width: 100%" />
+                </RadzenColumn>
+                <RadzenColumn SizeMD="9">
+                    <RadzenDropDown Data="@solutionRolesForRoleID" TextProperty="RoleName" ValueProperty="RoleID"
+                         Placeholder="Choose SolutionRole" style="display: block; width: 100%" @bind-Value="@solutionUsersInRole.RoleID" Name="RoleID"
+                           />
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenRow style="margin-bottom: 1rem">
+                <RadzenColumn SizeMD="3">
+                    <RadzenLabel Text="Solution User" Component="SolutionUser" style="width: 100%" />
+                </RadzenColumn>
+                <RadzenColumn SizeMD="9">
+                    <RadzenDropDown Data="@solutionUsersForUserID" TextProperty="EmailAddress" ValueProperty="UserID"
+                         Placeholder="Choose SolutionUser" style="display: block; width: 100%" @bind-Value="@solutionUsersInRole.UserID" Name="UserID"
+                           />
+                </RadzenColumn>
+            </RadzenRow>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+                    <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save" Variant="Variant.Flat" />
+                    <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Variant="Variant.Flat" Click="@CancelButtonClick"  />
+            </RadzenStack>
+        </RadzenTemplateForm>
+    </RadzenColumn>
+
